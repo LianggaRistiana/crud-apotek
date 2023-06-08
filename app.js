@@ -54,7 +54,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: {maxAge: 3600000},// umur cookies 1 jam
+    cookie: {maxAge: null},// umur cookies 1 jam
   })
 )
 
@@ -66,7 +66,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 const checkLoggedIn = (req, res, next) => {
   if (req.session.loggedIn) {

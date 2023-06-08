@@ -1,83 +1,123 @@
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#add-modal">
-        <i class="fa-solid fa-user"></i>
-        Tambah user
-      </button>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr class="text-center">
-              <th>No</th>
-              <th>Nama</th>
-              <th>Password</th>
-              <th>Umur</th>
-              <th>Email</th>
-              <th>No Telepon</th>
-              <th>Alamat</th>
-              <th>Tipe User</th>
-              <th style="width: 80;" class="text-right">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for(let i=0; i < user.length; i++){ %>
-              <tr>
-                <td>
-                  <%= i + 1 %>
-                </td>
-                <td>
-                  <%= user[i].nama %>
-                </td>
-                <td>
-                  <%= user[i].password %>
-                </td>
-                <td>
-                  <%= user[i].umur %>
-                </td>
-                <td>
-                  <%= user[i].email %>
-                </td>
-                <td>
-                  <%= user[i].no_telp %>
-                </td>
-                <td>
-                  <%= user[i].alamat %>
-                </td>
-                <td>
-                  <%= user[i].userType %>
-                </td>
-                <td class="text-right">
-                    <!-- ambil id -->
-                  <form action="/user/<%= user[i].id %>?_method=DELETE" 
-                    method="POST">
+<!-- <script>
+  function submitForm(action) {
+    document.getElementById('searchForm').action = action;
+    document.getElementById('searchForm').submit();
+  }
+</script> -->
 
-                    <!-- ambil data untuk modals -->
+<!-- DataTales Example -->
+<div class="card shadow mb-4 ">
+  <div class="card-header navbar py-3 justify-content-between">
+    <!-- search
+      <form class="d-none d-sm-inline-block align-right form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group ">
+          <input type="text" class="form-control bg-light border-0 small" placeholder="Cari Nama User"
+            aria-label="Search" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-search fa-sm"></i>
+            </button>
+          </div>
+        </div>
+      </form> -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-success  " data-toggle="modal" data-target="#add-modal">
+      <i class="fa-solid fa-user"></i>
+      Tambah user
+    </button>
+
+    <nav class="navbar d-sm-inline-block navbar-light bg-light">
+      <form class="form-inline" method="GET">
+        <input type="text" class="form-control bg-light border-0 small" id="searchInput" name="search" placeholder="Cari User" aria-label="Search"
+          aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fas fa-search fa-sm"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" id="namaLink" href="#">By Nama</a>
+              <a class="dropdown-item" id="umurLink" href="#">By Umur</a>
+              <a class="dropdown-item" id="telpLink" href="#">By No Telp</a>
+              <a class="dropdown-item" id="emailLink" href="#">By Email</a>
+              <a class="dropdown-item" id="alamatLink" href="#">By Alamat</a>
+            </div>
+          </div>
+        </div>
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+      </form>
+    </nav>
+
+
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr class="text-center">
+            <th>No</th>
+            <th>Nama</th>
+            <th>Password</th>
+            <th>Umur</th>
+            <th>Email</th>
+            <th>No Telepon</th>
+            <th>Alamat</th>
+            <th>Tipe User</th>
+            <th style="width: 80;" class="text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i=0; i < user.length; i++){ %>
+            <tr>
+              <td>
+                <%= i + 1 %>
+              </td>
+              <td>
+                <%= user[i].nama %>
+              </td>
+              <td>
+                <%= user[i].password %>
+              </td>
+              <td>
+                <%= user[i].umur %>
+              </td>
+              <td>
+                <%= user[i].email %>
+              </td>
+              <td>
+                <%= user[i].no_telp %>
+              </td>
+              <td>
+                <%= user[i].alamat %>
+              </td>
+              <td>
+                <%= user[i].userType %>
+              </td>
+              <td class="text-right">
+                <!-- ambil id -->
+                <form action="/user/<%= user[i].id %>?_method=DELETE" method="POST">
+
+                  <!-- ambil data untuk modals -->
                   <a href="javascript:void()" class="btn btn-outline-warning btn-sm button-update"
-                    data-id="<%= user[i].id %>" 
-                    data-nama="<%= user[i].nama %>"
-                    data-password="<%= user[i].password %>"
-                    data-umur="<%= user[i].umur %>" 
-                    data-email="<%= user[i].email %>"
-                    data-no_telp="<%= user[i].no_telp %>" 
-                    data-alamat="<%= user[i].alamat %>"
+                    data-id="<%= user[i].id %>" data-nama="<%= user[i].nama %>" data-password="<%= user[i].password %>"
+                    data-umur="<%= user[i].umur %>" data-email="<%= user[i].email %>"
+                    data-no_telp="<%= user[i].no_telp %>" data-alamat="<%= user[i].alamat %>"
                     data-type="<%= user[i].userType %>">
-                    
+
                     <!-- edit data i-->
                     <i class="fa-solid fa-pen-to-square"></i>Edit</a>
 
-                    <!-- hapus data i -->
+                  <!-- hapus data i -->
                   <button type="submit" class="btn btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i
                       class="fa-solid fa-trash-can"></i></button>
-                  </form>
-                </td>
-              </tr>
-              <% } %>
-          </tbody>
-        </table>
-      </div>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
+

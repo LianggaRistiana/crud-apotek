@@ -39,19 +39,37 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Transaksi Obat</h6>
+                        <h6 class="collapse-header">Transaksi</h6>
                         <a class="collapse-item" href="#">Transaksi Penjualan</a>
                         <a class="collapse-item" href="#">Transaksi Pembelian</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - users -->
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <div id="collapsePages2" class="collapse" aria-labelledby="headingPages"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Tampilkan User</h6>
+                        <a class="collapse-item" href="/user">Semua User</a>
+                        <a class="collapse-item" href="/user/tipe/admin">Admin</a>
+                        <a class="collapse-item" href="/user/tipe/customer">Customer</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - users -->
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="/user">
                     <i class="fa-solid fa-users"></i>
                     <span>Users</span></a>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
@@ -161,34 +179,95 @@
     <%- include('partials/scroll') %>
 
 
-    <script>
-        /* Menampilkan modal dan memanggil tag table yang memiliki id dataTable
-           class button-update di class tag a Edit di file table.ejs */
-        $("#dataTable").on("click", ".button-update", function () {
-            // membuat variabel untuk mengambil data-id, data-name, dstnya yang sudah dibuat di file table.ejs di bagian tag a edit
-            let id = $(this).data("id");
-            let nama = $(this).data("nama");
-            let password = $(this).data("password");
-            let umur = $(this).data("umur");
-            let email = $(this).data("email");
-            let no_telp = $(this).data("no_telp");
-            let alamat = $(this).data("alamat");
-            let userType = $(this).data("type");
-            /*
-             * memanggil id edit-modal yang ada di file edit_modal.ejs
-             * dan membuat fungsi dari method
-             */
-            $("#edit-modal").modal("show");
-            /* Lalu Mengirim  id, name, dstnya melalu class disamping form-control tag input
-               dan valuenya mengambil dari setiap let yang dideklarasikan di atas */
-            $(".id").val(id);
-            $(".nama").val(nama);
-            $(".password").val(password);
-            $(".umur").val(umur);
-            $(".email").val(email);
-            $(".no_telp").val(no_telp);
-            $(".alamat").val(alamat);
-            $("input[name='userType'][value='" + userType + "']").prop("checked", true);
-        });
-    </script>
-    <%- include('partials/footer') %>
+        <script>
+            /* Menampilkan modal dan memanggil tag table yang memiliki id dataTable
+               class button-update di class tag a Edit di file table.ejs */
+            $("#dataTable").on("click", ".button-update", function () {
+                // membuat variabel untuk mengambil data-id, data-name, dstnya yang sudah dibuat di file table.ejs di bagian tag a edit
+                let id = $(this).data("id");
+                let nama = $(this).data("nama");
+                let password = $(this).data("password");
+                let umur = $(this).data("umur");
+                let email = $(this).data("email");
+                let no_telp = $(this).data("no_telp");
+                let alamat = $(this).data("alamat");
+                let userType = $(this).data("type");
+                /*
+                 * memanggil id edit-modal yang ada di file edit_modal.ejs
+                 * dan membuat fungsi dari method
+                 */
+                $("#edit-modal").modal("show");
+                /* Lalu Mengirim  id, name, dstnya melalu class disamping form-control tag input
+                   dan valuenya mengambil dari setiap let yang dideklarasikan di atas */
+                $(".id").val(id);
+                $(".nama").val(nama);
+                $(".password").val(password);
+                $(".umur").val(umur);
+                $(".email").val(email);
+                $(".no_telp").val(no_telp);
+                $(".alamat").val(alamat);
+                $("input[name='userType'][value='" + userType + "']").prop("checked", true);
+            });
+        </script>
+        <%- include('partials/footer') %>
+
+            <script>
+                var searchInput = document.getElementById('searchInput');
+                var namaLink = document.getElementById('namaLink');
+                var umurLink = document.getElementById('umurLink');
+                var telpLink = document.getElementById('telpLink');
+                var emailLink = document.getElementById('emailLink');
+                var alamatLink = document.getElementById('alamatLink');
+
+                namaLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Mencegah aksi default hyperlink
+
+                    var searchValue = searchInput.value; // Mendapatkan nilai dari inputan form
+                    if (searchValue.trim() !== '') { // cek null
+                        var url = "/user/nama/" + encodeURIComponent(searchValue); // Membuat URL dengan nilai search
+                        // Redirect ke URL yang ditentukan
+                        window.location.href = url;
+                    }
+                });
+                umurLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Mencegah aksi default hyperlink
+
+                    var searchValue = searchInput.value; // Mendapatkan nilai dari inputan form
+                    if (searchValue.trim() !== '') { // cek null
+                        var url = "/user/umur/" + encodeURIComponent(searchValue); // Membuat URL dengan nilai search
+                        // Redirect ke URL yang ditentukan
+                        window.location.href = url;
+                    }
+                });
+                telpLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Mencegah aksi default hyperlink
+
+                    var searchValue = searchInput.value; // Mendapatkan nilai dari inputan form
+                    if (searchValue.trim() !== '') { // cek null
+                        var url = "/user/telp/" + encodeURIComponent(searchValue); // Membuat URL dengan nilai search
+                        // Redirect ke URL yang ditentukan
+                        window.location.href = url;
+                    }
+                });
+                alamatLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Mencegah aksi default hyperlink
+
+                    var searchValue = searchInput.value; // Mendapatkan nilai dari inputan form
+                    if (searchValue.trim() !== '') { // cek null
+                        var url = "/user/alamat/" + encodeURIComponent(searchValue); // Membuat URL dengan nilai search
+                        // Redirect ke URL yang ditentukan
+                        window.location.href = url;
+                    }
+                });
+                emailLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Mencegah aksi default hyperlink
+
+                    var searchValue = searchInput.value; // Mendapatkan nilai dari inputan form
+                    if (searchValue.trim() !== '') { // cek null
+                        var url = "/user/email/" + encodeURIComponent(searchValue); // Membuat URL dengan nilai search
+                        // Redirect ke URL yang ditentukan
+                        window.location.href = url;
+                    }
+                });
+
+            </script>
