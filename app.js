@@ -13,7 +13,6 @@ const mongoose = require("mongoose");
 // mengimpor method override
 const methodOverride = require("method-override");
 
-
 /**
  * mengubungkan ke database
  * mongoose.connect sebuah metode yang berfungsi untuk mengubungkan ke MongoDB
@@ -24,7 +23,6 @@ const methodOverride = require("method-override");
  */
 mongoose.connect("mongodb://127.0.0.1:27017/apotek", {
   // untuk pengertian fungsi dibawah ini di dokumentasi resminya sangat dijelaskan, jangan lupa dibaca.
-
   // useNewUrlParser: true,
   // useUnifiedTopology: true,
   // useCreateIndex: true,
@@ -38,12 +36,9 @@ var usersRouter = require('./routes/users');
 // mengambil fungsi router
 const customerRouter = require('./routes/customer');
 const userRouter = require('./routes/user');
-
-
-// login (coba coba)
 const loginRouter = require('./routes/login');
-// const userController = require('./controllers/userController');
 
+// const userController = require('./controllers/userController');
 var app = express();
 
 // view engine setup
@@ -59,7 +54,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: {maxAge: 60000},
+    cookie: {maxAge: 3600000},// umur cookies 1 jam
   })
 )
 
@@ -73,16 +68,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const checkLoggedIn = (req, res, next) => {
+  if (req.session.loggedIn) {
+    // Jika pengguna sudah login, lanjutkan ke rute berikutnya
+    next();
+  } else {
+    // Jika pengguna belum login, redirect ke halaman login
+    res.redirect("/");
+  }
+};
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+app.use('/', loginRouter);
 app.use('/customer',customerRouter);
-app.use('/user', userRouter);
+app.use('/user', checkLoggedIn,userRouter);
 
-
-app.get('/login',function(req,res) {
-  res.render('login');
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

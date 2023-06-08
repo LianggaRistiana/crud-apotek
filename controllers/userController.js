@@ -1,9 +1,16 @@
 const User = require("../models/User");
 
+const logoutUser = (req, res) => {
+  req.session.loggedIn = false; // Menghapus status login pengguna
+  req.session.username = null; 
+  res.redirect("/");
+};
+
 module.exports = {
   // read data user
   viewUser: async (req, res) => {
     try {
+      req.session.loggedIn = true;
       const user = await User.find();
 
     //   message and status
@@ -12,9 +19,11 @@ module.exports = {
       const alert = { message: alertMessage, status: alertStatus };
 
     //   render componen
+    
       res.render("user_page", {
         user,
         alert,
+        username: req.session.username,
         title: "User Table",
         heading: "Tabel User"
       });
@@ -27,10 +36,11 @@ module.exports = {
   // create data user
   addUser: async (req, res) => {
     try {
+      req.session.loggedIn = true;
       const { nama, password, umur, email, no_telp, alamat, userType } = req.body;
 
       await User.create({ nama, password, umur, email, no_telp, alamat, userType });
-
+      
       // success message
       req.flash("alertMessage", "Data user berhasil ditambahkan");
       req.flash("alertStatus", "success");
@@ -47,6 +57,7 @@ module.exports = {
   // update data
   editUser: async (req, res) => {
     try {
+      req.session.loggedIn = true;
       const { id, nama, password, umur, email, no_telp, alamat, userType } = req.body;
       
       // cari data berdasarkan id
@@ -63,7 +74,7 @@ module.exports = {
 
       // simpan data ke database
       await user.save();
-
+      
       // succes message
       req.flash("alertMessage", "Berhasil memperbarui data user");
       req.flash("alertStatus", "success");
@@ -79,6 +90,7 @@ module.exports = {
   // Delete data
   deleteUser: async (req, res) => {
     try {
+      req.session.loggedIn = true;
       const { id } = req.params;
 
       // cari data berdasarkan id
@@ -86,7 +98,7 @@ module.exports = {
 
       // delete data
       await user.deleteOne();
-
+      
       // succes message
       req.flash("alertMessage", "Data user berhasil dihapus");
       req.flash("alertStatus", "warning");
@@ -99,4 +111,5 @@ module.exports = {
       res.redirect("/user");
     }
   },
+  logoutUser
 };
