@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="add-modal"
+  id="edit-modal"
   tabindex="-1"
   role="dialog"
   aria-labelledby="exampleModalLabel"
@@ -10,7 +10,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Product</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
         <button
           type="button"
           class="close"
@@ -20,7 +20,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="/transaksi/<%=transaksi.id %>?_method=POST" method="POST">
+      <form action="/transaksi/<%=transaksi.id %>?_method=PUT" method="POST">
         <div class="modal-body">
           <div class="form-group">
             <label for="name">Nama Obat</label>
@@ -39,7 +39,7 @@
               type="number"
               class="form-control harga"
               id="harga"
-              name="harga"
+              name="new_harga"
               placeholder="Masukan harga"
               required
             />
@@ -50,7 +50,7 @@
               type="number"
               class="form-control kuantitas"
               id="kuantitas"
-              name="kuantitas"
+              name="new_kuantitas"
               placeholder="Masukan kuantitas"
               required
             />
@@ -67,11 +67,14 @@
             />
           </div> -->
         </div>
+        <input type="hidden" class="id" name="id" />
+        <input type="hidden" class="kuantitas" name="old_kuantitas"/>
+        <input type="hidden" class="harga" name="old_harga"/>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             Close
           </button>
-          <button type="submit" class="btn btn-success">Add</button>
+          <button type="submit" class="btn btn-success">Update</button>
         </div>
       </form>
     </div>

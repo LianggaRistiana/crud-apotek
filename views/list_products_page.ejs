@@ -27,7 +27,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Tabel Data
+                Tabel Detail Transaksi
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -111,7 +111,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <h4 class="text-left">Tabel Transaksi</h4>
+                    <h4 class="text-left">Tabel Detail Transaksi</h4>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -172,7 +172,7 @@
                 <!-- Add Modal -->
                 <%- include('partials/list_add_modal') %>
                     <!-- Edit Modal -->
-                    <%- include('partials/user_edit_modal') %>
+                    <%- include('partials/list_edit_modal') %>
                         <!-- JS -->
                         <%- include('js.ejs') %>
     </main>
@@ -186,13 +186,10 @@
             $("#dataTable").on("click", ".button-update", function () {
                 // membuat variabel untuk mengambil data-id, data-name, dstnya yang sudah dibuat di file table.ejs di bagian tag a edit
                 let id = $(this).data("id");
-                let nama = $(this).data("nama");
-                let password = $(this).data("password");
-                let umur = $(this).data("umur");
-                let email = $(this).data("email");
-                let no_telp = $(this).data("no_telp");
-                let alamat = $(this).data("alamat");
-                let userType = $(this).data("type");
+                let obat = $(this).data("obat");
+                let harga = $(this).data("harga");
+                let kuantitas = $(this).data("kuantitas");
+              
                 /*
                  * memanggil id edit-modal yang ada di file edit_modal.ejs
                  * dan membuat fungsi dari method
@@ -201,13 +198,9 @@
                 /* Lalu Mengirim  id, name, dstnya melalu class disamping form-control tag input
                    dan valuenya mengambil dari setiap let yang dideklarasikan di atas */
                 $(".id").val(id);
-                $(".nama").val(nama);
-                $(".password").val(password);
-                $(".umur").val(umur);
-                $(".email").val(email);
-                $(".no_telp").val(no_telp);
-                $(".alamat").val(alamat);
-                $("input[name='userType'][value='" + userType + "']").prop("checked", true);
+                $(".nama_obat").val(obat);
+                $(".harga").val(harga);
+                $(".kuantitas").val(kuantitas);
             });
         </script>
 

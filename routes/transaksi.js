@@ -11,7 +11,8 @@ router.get("/products/:id", transaksiController.viewProducts); // Untuk view
 router.get("/logout", loginController.logoutUser); // Untuk view
 router.post("/", transaksiController.addTransaksi); // Untuk add transaksi
 router.post("/:id", transaksiController.addProducts); // Untuk add product suatu 
-router.put("/", transaksiController.editTransaksi);
+router.put("/", transaksiController.editTransaksi); // untuk edit transaksi
+router.put("/:idTransaksi", transaksiController.editProducts); // untuk edit product
 router.delete("/:id", transaksiController.deleteTransaksi); // Untuk delete
 router.delete("/:idTransaksi/:idProduct", transaksiController.deleteProducts); // Untuk delete product
 // router.get("*",userController.viewUser);

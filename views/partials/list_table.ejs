@@ -4,14 +4,14 @@
   <div class="card-header navbar py-3 justify-content-between">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-outline-success  " data-toggle="modal" data-target="#add-modal">
-      <i class="fa-regular fa-money-bill-1"></i>
+      <i class="fa-solid fa-pills"></i>
       Tambah Product
     </button>
 
     <nav class="navbar d-sm-inline-block navbar-light bg-light">
       <form class="form-inline" method="GET">
         <input type="text" class="form-control bg-light border-0  small" id="searchInput" name="search"
-          placeholder="Cari Transaksi" aria-label="Search" aria-describedby="basic-addon2">
+          placeholder="Cari Product" aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
           <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true"
@@ -50,7 +50,7 @@
           <td><%= transaksi.tanggal_transaksi %></td>
         </tr>
         <tr>
-          <td>Tanggal Transaksi</td>
+          <td>Total Harga</td>
           <td>:</td>
           <td><%= transaksi.total_harga %></td>
         </tr>
@@ -96,8 +96,7 @@
                     data-id="<%=products[i].id %>" 
                     data-obat="<%=products[i].nama_obat %>" 
                     data-harga="<%=products[i].harga %>" 
-                    data-kuantitas="<%=products[i].kuantitas %>"
-                    data-total="<%=products[i].total_harga %>">
+                    data-kuantitas="<%=products[i].kuantitas %>">
 
                     <!-- edit data i-->
                     <i class="fa-solid fa-pen-to-square"></i>Edit</a>

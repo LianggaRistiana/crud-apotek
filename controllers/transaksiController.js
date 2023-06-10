@@ -24,12 +24,10 @@ module.exports = {
   },
   viewProducts: async (req, res) => {
     req.session.loggedIn = true;
-    console.log("masuk ke viewProducts");
+    console.log("================= viewProducts ===============");
     try {
       const transaksi = await Transaksi.findOne({_id:req.params.id});
-      console.log(transaksi);
       const products = transaksi.products;
-      console.log(products);
     //   message and status
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
@@ -100,7 +98,7 @@ module.exports = {
       res.redirect("/transaksi/products/"+req.params.id);
     }
   },
-  // update data
+  // update data transaksi
   editTransaksi: async (req, res) => {
     req.session.loggedIn = true;
     try {
@@ -131,8 +129,50 @@ module.exports = {
       res.redirect("/transaksi");
     }
   },
+  // update data product
+  editProducts: async (req, res) => {
+    req.session.loggedIn = true;
+    try {
+      console.log("================Edit products=============");
+      
+      const transaksi = await Transaksi.findOne({_id:req.params.idTransaksi});
+      console.log("harga normal :"+transaksi.total_harga);
+      transaksi.total_harga -= req.body.old_harga * req.body.old_kuantitas;
+      console.log("harga dikurangi :"+transaksi.total_harga);
+      transaksi.total_harga += req.body.new_harga * req.body.new_kuantitas;
+      console.log("harga baru"+transaksi.total_harga);
 
-  // Delete data
+      await transaksi.save();
+
+      // id di req body adalah id product
+      await Transaksi.findOneAndUpdate(
+        { _id: req.params.idTransaksi, 'products._id': req.body.id }, // Cari transaksi berdasarkan ObjectId dan produk dengan _id yang cocok
+        {
+          $set: {
+            'products.$.nama_obat': req.body.nama_obat,
+            'products.$.harga': req.body.new_harga,
+            'products.$.kuantitas': req.body.new_kuantitas,
+            'products.$.total_harga': req.body.new_harga * req.body.new_kuantitas,
+          },
+        },
+        { new: true }
+      );
+
+      // update dan simpan value baru
+
+      // succes message
+      req.flash("alertMessage", "Berhasil memperbarui data transaksi");
+      req.flash("alertStatus", "success");
+      res.redirect("/transaksi/products/"+req.params.idTransaksi);
+    } catch (error) {
+      // erro message
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/transaksi/products/"+req.params.idTransaksi);
+    }
+  },
+
+  // Delete data transaksi
   deleteTransaksi: async (req, res) => {
     try {
       req.session.loggedIn = true;
@@ -150,7 +190,7 @@ module.exports = {
       res.redirect("/transaksi");
     }
   },
-  // Delete data
+  // Delete data produk
   deleteProducts: async (req, res) => {
     req.session.loggedIn = true;
     console.log(req.body.total_harga);
