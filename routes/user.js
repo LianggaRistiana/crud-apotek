@@ -1,8 +1,5 @@
 const router = require("express").Router();
 
-// if (isAdmin === true) {
-    
-
 // Export User controller
 const userController = require("../controllers/userController");
 

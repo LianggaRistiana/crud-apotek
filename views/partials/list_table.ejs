@@ -1,0 +1,116 @@
+<!-- DataTales Example -->
+
+<div class="card shadow mb-4 ">
+  <div class="card-header navbar py-3 justify-content-between">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-success  " data-toggle="modal" data-target="#add-modal">
+      <i class="fa-regular fa-money-bill-1"></i>
+      Tambah Product
+    </button>
+
+    <nav class="navbar d-sm-inline-block navbar-light bg-light">
+      <form class="form-inline" method="GET">
+        <input type="text" class="form-control bg-light border-0  small" id="searchInput" name="search"
+          placeholder="Cari Transaksi" aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fas fa-search fa-sm"></i>
+            </button>
+            <div class="dropdown-menu animated--grow-in">
+              <a class="dropdown-item" id="namaLink" href="#">By Nama Pembeli</a>
+              <a class="dropdown-item" id="umurLink" href="#">By Nama Penjual</a>
+              <a class="dropdown-item" id="telpLink" href="#">By Tanggal</a>
+            </div>
+          </div>
+        </div>
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+      </form>
+    </nav>
+
+
+  </div>
+  <div class="card-body">
+    <div> 
+      <table width="100%" cellspacing="0">
+        <tr>
+          <td>Nama Pembeli</td>
+          <td>:</td>
+          <td><%= transaksi.nama_pembeli %></td>
+        </tr>
+        <tr>
+          <td>Nama Penjual</td>
+          <td>:</td>
+          <td><%= transaksi.nama_penjual %></td>
+        </tr>
+        <tr>
+          <td>Tanggal Transaksi</td>
+          <td>:</td>
+          <td><%= transaksi.tanggal_transaksi %></td>
+        </tr>
+        <tr>
+          <td>Tanggal Transaksi</td>
+          <td>:</td>
+          <td><%= transaksi.total_harga %></td>
+        </tr>
+      </table>
+      <br>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr class="text-center">
+            <th>No</th>
+            <th>Nama Obat</th>
+            <th>Harga</th>
+            <th>Kuantitas</th>
+            <th>Total Harga</th>
+            <th style="width: 80;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i=0; i < products.length; i++){ %>
+            <tr>
+              <td>
+                <%= i + 1 %>
+              </td>
+              <td>
+                <%=products[i].nama_obat %>
+              </td>
+              <td>
+                <%=products[i].harga %>
+              </td>
+              <td>
+                <%=products[i].kuantitas %>
+              </td>
+              <td>
+                <%=products[i].total_harga %>
+              </td>
+              <td class="text-right">
+                <!-- ambil id -->
+                <form action="/transaksi/<%=transaksi.id %>/<%=products[i].id %>?_method=DELETE" method="POST">
+                  <input type="hidden" class="id" name="total_harga" value=<%=products[i].total_harga %>/>
+                  <!-- ambil data untuk modals -->
+                  <a href="javascript:void()" class="btn btn-outline-warning btn-sm button-update"
+                    data-id="<%=products[i].id %>" 
+                    data-obat="<%=products[i].nama_obat %>" 
+                    data-harga="<%=products[i].harga %>" 
+                    data-kuantitas="<%=products[i].kuantitas %>"
+                    data-total="<%=products[i].total_harga %>">
+
+                    <!-- edit data i-->
+                    <i class="fa-solid fa-pen-to-square"></i>Edit</a>
+
+                  <!-- hapus data i -->
+                  <button type="submit" class="btn btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i
+                      class="fa-solid fa-trash-can"></i></button>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

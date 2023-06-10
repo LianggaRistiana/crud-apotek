@@ -207,7 +207,6 @@ module.exports = {
     try {
       
       const { id, nama, password, umur, email, no_telp, alamat, userType } = req.body;
-      
       // cari data berdasarkan id
       const user = await User.findOne({ _id: id });
       
@@ -219,7 +218,7 @@ module.exports = {
       user.no_telp = no_telp;
       user.alamat = alamat;
       user.userType = userType;
-
+  
       // simpan data ke database
       await user.save();
       

@@ -37,6 +37,7 @@ var usersRouter = require('./routes/users');
 const customerRouter = require('./routes/customer');
 const userRouter = require('./routes/user');
 const loginRouter = require('./routes/login');
+const transaksiRouter = require('./routes/transaksi');
 
 // const userController = require('./controllers/userController');
 var app = express();
@@ -74,7 +75,7 @@ const checkLoggedIn = (req, res, next) => {
     // Jika pengguna sudah login, lanjutkan ke rute berikutnya
     next();
   } else {
-    // Jika pengguna belum login, redirect ke halaman login
+    console.log("=============== SESSION END ===================");
     res.redirect("/");
   }
 };
@@ -82,10 +83,11 @@ const checkLoggedIn = (req, res, next) => {
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
+// Router Path
 app.use('/', loginRouter);
 app.use('/customer',customerRouter);
 app.use('/user', checkLoggedIn,userRouter);
-
+app.use('/transaksi', checkLoggedIn,transaksiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,104 @@
+<!-- DataTales Example -->
+<div class="card shadow mb-4 ">
+    <div class="card-header navbar py-3 justify-content-between">
+     
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-outline-success  " data-toggle="modal" data-target="#add-modal">
+        <i class="fa-regular fa-money-bill-1"></i>
+        Tambah Transaksi
+      </button>
+  
+      <nav class="navbar d-sm-inline-block navbar-light bg-light">
+        <form class="form-inline" method="GET">
+          <input type="text" class="form-control bg-light border-0  small" id="searchInput" name="search" placeholder="Cari Transaksi" aria-label="Search"
+            aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+              <div class="dropdown-menu animated--grow-in">
+                <a class="dropdown-item" id="namaLink" href="#">By Nama Pembeli</a>
+                <a class="dropdown-item" id="umurLink" href="#">By Nama Penjual</a>
+                <a class="dropdown-item" id="telpLink" href="#">By Tanggal</a>
+              </div>
+            </div>
+          </div>
+          <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </form>
+      </nav>
+  
+  
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr class="text-center">
+              <th>No</th>
+              <th>Nama Pembeli</th>
+              <th>Nama Penjual</th>
+              <th style="width: 80;">Tanggal Transaksi</th>
+              <th>Jenis Transaksi</th>
+              <th>Total Harga</th>
+              <th>Products</th>
+              <th style="width: 80;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i=0; i < transaksi.length; i++){ %>
+              <tr>
+                <td>
+                  <%= i + 1 %>
+                </td>
+                <td>
+                  <%= transaksi[i].nama_pembeli %>
+                </td>
+                <td>
+                  <%= transaksi[i].nama_penjual %>
+                </td>
+                <td>
+                  <%= transaksi[i].tanggal_transaksi %>
+                </td>
+                <td>
+                  <%= transaksi[i].jenis_transaksi %>
+                </td>
+                <td>
+                  <%= transaksi[i].total_harga %>
+                </td>
+                <td>
+                    <form action="/transaksi/products/<%= transaksi[i].id %>?_method=GET" method="POST">
+                    <button type="submit" class="btn btn btn-primary btn-sm" > <i class="fa-solid fa-list"></i>List</button>
+                    </form>
+                </td>
+                <td class="text-right">
+                  <!-- ambil id -->
+                  <form action="/transaksi/<%= transaksi[i].id %>?_method=DELETE" method="POST">
+  
+                    <!-- ambil data untuk modals -->
+                    <a href="javascript:void()" class="btn mt-1 btn-outline-warning btn-sm button-update"
+                      data-id="<%= transaksi[i].id %>" 
+                      data-namapembeli="<%= transaksi[i].nama_pembeli %>" 
+                      data-namapenjual="<%= transaksi[i].nama_penjual %>" 
+                      data-tanggal="<%= transaksi[i].tanggal_transaksi %>"
+                      data-jenis="<%= transaksi[i].jenis_transaksi %>" 
+                      data-total="<%= transaksi[i].total_harga %>">
+  
+                      <!-- edit data i-->
+                      <i class="fa-solid fa-pen-to-square"></i>Edit</a>
+  
+                    <!-- hapus data i -->
+                    <button type="submit" class="btn btn btn-danger btn-sm mt-1" onclick="return confirm('Anda Yakin?');"><i
+                        class="fa-solid fa-trash-can"></i></button>
+                  </form>
+                </td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  

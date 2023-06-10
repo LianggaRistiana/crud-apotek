@@ -27,18 +27,19 @@ const transaksiScheme = new mongoose.Schema({
             type:String,
             require:true
         },
-        jumlah:{
+        kuantitas:{
             type:Number,
             require:true
         },
         harga:{
             type:Number,
             require:true
+        },
+        total_harga:{
+            type:Number,
+            require:true
         }
     }]
-
-
-
 })
 
 module.exports = mongoose.model("Transaksi", transaksiScheme);

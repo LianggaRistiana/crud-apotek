@@ -64,7 +64,7 @@
             <th>No Telepon</th>
             <th>Alamat</th>
             <th>Tipe User</th>
-            <th style="width: 80;" class="text-right">Action</th>
+            <th style="width: 80;">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -99,7 +99,7 @@
                 <form action="/user/<%= user[i].id %>?_method=DELETE" method="POST">
 
                   <!-- ambil data untuk modals -->
-                  <a href="javascript:void()" class="btn btn-outline-warning btn-sm button-update"
+                  <a href="javascript:void()" class="btn btn-outline-warning btn-sm mt-1 button-update"
                     data-id="<%= user[i].id %>" data-nama="<%= user[i].nama %>" data-password="<%= user[i].password %>"
                     data-umur="<%= user[i].umur %>" data-email="<%= user[i].email %>"
                     data-no_telp="<%= user[i].no_telp %>" data-alamat="<%= user[i].alamat %>"
@@ -109,7 +109,7 @@
                     <i class="fa-solid fa-pen-to-square"></i>Edit</a>
 
                   <!-- hapus data i -->
-                  <button type="submit" class="btn btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i
+                  <button type="submit" class="btn btn btn-danger mt-1 btn-sm" onclick="return confirm('Anda Yakin?');"><i
                       class="fa-solid fa-trash-can"></i></button>
                 </form>
               </td>

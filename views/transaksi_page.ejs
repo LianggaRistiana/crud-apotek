@@ -40,7 +40,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Transaksi</h6>
-                        <a class="collapse-item" href="/transaksi">Semua Transaksi</a>
+                        <a class="collapse-item" href="#">Semua Transaksi</a>
                         <a class="collapse-item" href="#">Transaksi Penjualan</a>
                         <a class="collapse-item" href="#">Transaksi Pembelian</a>
                     </div>
@@ -111,7 +111,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <h4 class="text-left">Tabel Users</h4>
+                    <h4 class="text-left">Tabel Transaksi</h4>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -159,18 +159,20 @@
                             <!-- alert -->
                             <%- include('partials/alert') %>
                                 <!-- Table -->
-                                <div class="col-auto col-lg-12 mt-2"><%- include('partials/user_table') %></div>
+                                <div class="col-auto col-lg-12 mt-2"><%- include('partials/transaksi_table') %></div>
                         </div>
                     </div>
                 </div>
             </div>
 
+
+
             <!-- Log Out Modal -->
             <%- include('partials/logout_modal') %>
                 <!-- Add Modal -->
-                <%- include('partials/user_add_modal') %>
+                <%- include('partials/transaksi_add_modal') %>
                     <!-- Edit Modal -->
-                    <%- include('partials/user_edit_modal') %>
+                    <%- include('partials/transaksi_edit_modal') %>
                         <!-- JS -->
                         <%- include('js.ejs') %>
     </main>
@@ -179,33 +181,26 @@
 
 
         <script>
-            /* Menampilkan modal dan memanggil tag table yang memiliki id dataTable
-               class button-update di class tag a Edit di file table.ejs */
             $("#dataTable").on("click", ".button-update", function () {
-                // membuat variabel untuk mengambil data-id, data-name, dstnya yang sudah dibuat di file table.ejs di bagian tag a edit
+
+                // ambil data
                 let id = $(this).data("id");
-                let nama = $(this).data("nama");
-                let password = $(this).data("password");
-                let umur = $(this).data("umur");
-                let email = $(this).data("email");
-                let no_telp = $(this).data("no_telp");
-                let alamat = $(this).data("alamat");
-                let userType = $(this).data("type");
-                /*
-                 * memanggil id edit-modal yang ada di file edit_modal.ejs
-                 * dan membuat fungsi dari method
-                 */
+                let nama_pembeli = $(this).data("namapembeli");
+                let nama_penjual = $(this).data("namapenjual");
+                let tanggal_transaksi = $(this).data("tanggal");
+                let jenis_transaksi = $(this).data("jenis");
+                let total_harga = $(this).data("total");
+                
+                // show modal
                 $("#edit-modal").modal("show");
-                /* Lalu Mengirim  id, name, dstnya melalu class disamping form-control tag input
-                   dan valuenya mengambil dari setiap let yang dideklarasikan di atas */
+                
+                // kirimkan valuenya
                 $(".id").val(id);
-                $(".nama").val(nama);
-                $(".password").val(password);
-                $(".umur").val(umur);
-                $(".email").val(email);
-                $(".no_telp").val(no_telp);
-                $(".alamat").val(alamat);
-                $("input[name='userType'][value='" + userType + "']").prop("checked", true);
+                $(".nama_pembeli").val(nama_pembeli);
+                $(".nama_penjual").val(nama_penjual);
+                $(".tanggal_transaksi").val(tanggal_transaksi);
+                $(".total_harga").val(total_harga);
+                $("input[name='jenis_transaksi'][value='" + jenis_transaksi + "']").prop("checked", true);
             });
         </script>
 

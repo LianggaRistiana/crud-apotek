@@ -1,0 +1,79 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="add-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/transaksi/<%=transaksi.id %>?_method=POST" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Nama Obat</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nama_obat"
+              name="nama_obat"
+              placeholder="Masukan nama obat"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Harga</label>
+            <input
+              type="number"
+              class="form-control"
+              id="harga"
+              name="harga"
+              placeholder="Masukan harga"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Kuantitas</label>
+            <input
+              type="number"
+              class="form-control"
+              id="kuantitas"
+              name="kuantitas"
+              placeholder="Masukan kuantitas"
+              required
+            />
+          </div>
+          <!-- <div class="form-group">
+            <label for="name">Total Harga</label>
+            <input
+              type="number"
+              class="form-control"
+              id="total_harga"
+              name="total_harga"
+              placeholder="Masukan total harga"
+              required
+            />
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-success">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -111,7 +111,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <h4 class="text-left">Tabel Users</h4>
+                    <h4 class="text-left">Tabel Transaksi</h4>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -159,16 +159,18 @@
                             <!-- alert -->
                             <%- include('partials/alert') %>
                                 <!-- Table -->
-                                <div class="col-auto col-lg-12 mt-2"><%- include('partials/user_table') %></div>
+                                <div class="col-auto col-lg-12 mt-2"><%- include('partials/list_table') %></div>
                         </div>
                     </div>
                 </div>
             </div>
 
+
+
             <!-- Log Out Modal -->
             <%- include('partials/logout_modal') %>
                 <!-- Add Modal -->
-                <%- include('partials/user_add_modal') %>
+                <%- include('partials/list_add_modal') %>
                     <!-- Edit Modal -->
                     <%- include('partials/user_edit_modal') %>
                         <!-- JS -->
