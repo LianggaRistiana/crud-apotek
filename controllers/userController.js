@@ -11,8 +11,22 @@ module.exports = {
   viewUser: async (req, res) => {
     req.session.loggedIn = true;
     try {
-      
-      const user = await User.find();
+      var user;
+      if (req.query.tipe != null) {
+        user = await User.find({userType:req.query.tipe});
+      } else if (req.query.nama != null){
+        user = await User.find({nama:req.query.nama});
+      } else if (req.query.umur != null){
+        user = await User.find({umur:req.query.umur});
+      } else if (req.query.alamat != null){
+        user = await User.find({alamat:req.query.alamat});
+      } else if (req.query.telp != null){
+        user =  await User.find({no_telp:req.query.telp});
+      } else if (req.query.email != null){
+        user = await User.find({email:req.query.email});
+      } else {
+        user = await User.find();
+      }
 
     //   message and status
       const alertMessage = req.flash("alertMessage");
@@ -33,152 +47,6 @@ module.exports = {
       res.redirect("/user");
     }
   },
-  // read user by name
-  viewUserByName: async (req, res) => {
-    req.session.loggedIn = true;
-    try {      
-      
-      // console.log(req.body);
-      const user = await User.find({nama:req.params.nama});
-    //   message and status
-      const alertMessage = req.flash("alertMessage");
-      const alertStatus = req.flash("alertStatus");
-      const alert = { message: alertMessage, status: alertStatus };
-
-    //   render componen
-    
-      res.render("user_page", {
-        user,
-        alert,
-        username: req.session.username,
-        title: "User Table",
-      });
-    } catch (error) {
-      // back to user jika error
-      res.redirect("/user");
-    }
-  },
-  // read user by umur
-  viewUserByUmur: async (req, res) => {
-    req.session.loggedIn = true;
-    try {
-      const user = await User.find({umur:req.params.umur});
-    //   message and status
-      const alertMessage = req.flash("alertMessage");
-      const alertStatus = req.flash("alertStatus");
-      const alert = { message: alertMessage, status: alertStatus };
-
-    //   render componen
-    
-      res.render("user_page", {
-        user,
-        alert,
-        username: req.session.username,
-        title: "User Table",
-        heading: "Tabel User"
-      });
-    } catch (error) {
-      // back to user jika error
-      res.redirect("/user");
-    }
-  },
-  // read user by tipe
-  viewUserByTelp: async (req, res) => {
-    req.session.loggedIn = true;
-    try {
-      const user = await User.find({no_telp:req.params.telp});
-    //   message and status
-      const alertMessage = req.flash("alertMessage");
-      const alertStatus = req.flash("alertStatus");
-      const alert = { message: alertMessage, status: alertStatus };
-
-    //   render componen
-    
-      res.render("user_page", {
-        user,
-        alert,
-        username: req.session.username,
-        title: "User Table",
-        heading: "Tabel User"
-      });
-    } catch (error) {
-      // back to user jika error
-      res.redirect("/user");
-    }
-  },
-  // read user by alamat
-  viewUserByAlamat: async (req, res) => {
-    req.session.loggedIn = true;
-    try {
-      const user = await User.find({alamat:req.params.alamat});
-    //   message and status
-      const alertMessage = req.flash("alertMessage");
-      const alertStatus = req.flash("alertStatus");
-      const alert = { message: alertMessage, status: alertStatus };
-
-    //   render componen
-    
-      res.render("user_page", {
-        user,
-        alert,
-        username: req.session.username,
-        title: "User Table",
-        heading: "Tabel User"
-      });
-    } catch (error) {
-      // back to user jika error
-      res.redirect("/user");
-    }
-  },
-  // read user by email
-  viewUserByEmail: async (req, res) => {
-    req.session.loggedIn = true;
-    try {
-      const user = await User.find({email:req.params.email});
-    //   message and status
-      const alertMessage = req.flash("alertMessage");
-      const alertStatus = req.flash("alertStatus");
-      const alert = { message: alertMessage, status: alertStatus };
-
-    //   render componen
-    
-      res.render("user_page", {
-        user,
-        alert,
-        username: req.session.username,
-        title: "User Table",
-        heading: "Tabel User"
-      });
-    } catch (error) {
-      // back to user jika error
-      res.redirect("/user");
-    }
-  },
-  // read user by tipe
-  viewUserByTipe: async (req, res) => {
-    req.session.loggedIn = true;
-    try {
-      const user = await User.find({userType:req.params.tipe});
-    //   message and status
-      const alertMessage = req.flash("alertMessage");
-      const alertStatus = req.flash("alertStatus");
-      const alert = { message: alertMessage, status: alertStatus };
-
-    //   render componen
-    
-      res.render("user_page", {
-        user,
-        alert,
-        username: req.session.username,
-        title: "User Table",
-        heading: "Tabel User"
-      });
-    } catch (error) {
-      // back to user jika error
-      res.redirect("/user");
-    }
-  },
-
   // create data user
   addUser: async (req, res) => {
     req.session.loggedIn = true;

@@ -5,7 +5,19 @@ module.exports = {
   viewTransaksi: async (req, res) => {
     req.session.loggedIn = true;
     try {
-      const transaksi = await Transaksi.find();
+      var transaksi;
+      if (req.query.tanggal != null) {
+        transaksi = await Transaksi.find({tanggal_transaksi : req.query.tanggal});
+      } else if (req.query.tipe != null){
+        transaksi = await Transaksi.find({jenis_transaksi : req.query.tipe});
+      } else if (req.query.namabeli != null){
+        transaksi = await Transaksi.find({nama_pembeli : req.query.namabeli});
+      } else if (req.query.namajual != null){
+        transaksi = await Transaksi.find({nama_penjual : req.query.namajual});
+      }
+      else{
+       transaksi = await Transaksi.find();
+      }
     //   message and status
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");

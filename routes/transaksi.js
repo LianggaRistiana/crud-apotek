@@ -7,6 +7,8 @@ const transaksiController = require("../controllers/transaksiController");
 
 // endpoint User
 router.get("/", transaksiController.viewTransaksi); // Untuk view
+// router.get("/tanggal", transaksiController.viewTransaksiByTanggal); // Untuk view bye tipe
+// router.get("/:tipe", transaksiController.viewTransaksiByTipe); // Untuk view bye tipe
 router.get("/products/:id", transaksiController.viewProducts); // Untuk view
 router.get("/logout", loginController.logoutUser); // Untuk view
 router.post("/", transaksiController.addTransaksi); // Untuk add transaksi
