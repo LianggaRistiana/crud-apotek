@@ -13,14 +13,7 @@ const mongoose = require("mongoose");
 // mengimpor method override
 const methodOverride = require("method-override");
 
-/**
- * mengubungkan ke database
- * mongoose.connect sebuah metode yang berfungsi untuk mengubungkan ke MongoDB
- * db_mahasiswa sebagai nama dari database yang akan dibuat, penamaan ini bebas, sesuai selera
- * 27017 adalah lokal port default
- * jika menggunakan angka 27017 gagal bisa menggunakan 127.0.0.1
- * penjelasan ini saya dapatkan dari dokumentasi resminya
- */
+// ConnectMongoDB
 mongoose.connect("mongodb://127.0.0.1:27017/apotek", {
   // untuk pengertian fungsi dibawah ini di dokumentasi resminya sangat dijelaskan, jangan lupa dibaca.
   // useNewUrlParser: true,
@@ -30,11 +23,10 @@ mongoose.connect("mongodb://127.0.0.1:27017/apotek", {
 });
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
 // mengambil fungsi router
-const customerRouter = require('./routes/customer');
 const userRouter = require('./routes/user');
 const loginRouter = require('./routes/login');
 const transaksiRouter = require('./routes/transaksi');
@@ -83,9 +75,9 @@ const checkLoggedIn = (req, res, next) => {
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
+
 // Router Path
 app.use('/', loginRouter);
-app.use('/customer',customerRouter);
 app.use('/user', checkLoggedIn,userRouter);
 app.use('/transaksi', checkLoggedIn,transaksiRouter);
 

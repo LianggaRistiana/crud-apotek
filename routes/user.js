@@ -9,10 +9,6 @@ router.get("/logout", userController.logoutUser); // Untuk view
 router.post("/", userController.addUser); // Untuk add
 router.put("/", userController.editUser); // Untuk edit
 router.delete("/:id", userController.deleteUser); // Untuk delete
-// router.get("*",userController.viewUser);
+
 // Lalu export routernya 
 module.exports = router;
-
-// }else{
-    
-// }
