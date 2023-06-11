@@ -199,7 +199,6 @@
                 $(".nama_pembeli").val(nama_pembeli);
                 $(".nama_penjual").val(nama_penjual);
                 $(".tanggal_transaksi").val(tanggal_transaksi);
-                console.log(tanggal_transaksi);
                 $(".total_harga").val(total_harga);
                 $("input[name='jenis_transaksi'][value='" + jenis_transaksi + "']").prop("checked", true);
             });
@@ -232,7 +231,7 @@
                     window.location.href = url;
                 }
             });
-            
+
         </script>
 
         <%- include('partials/footer') %>
