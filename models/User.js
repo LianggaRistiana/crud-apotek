@@ -13,8 +13,8 @@ const userScheme = new mongoose.Schema({
     type: String,
     required: true,
   },
-  umur: {
-    type: Number,
+  tanggal_lahir: {
+    type: Date,
     required: true,
   },
   no_telp: {

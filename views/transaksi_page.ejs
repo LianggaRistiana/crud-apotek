@@ -12,15 +12,15 @@
                 <div class="sidebar-brand-text mx-3">Manajemen Apotek</sup></div>
             </a>
 
-            <!-- Divider -->
+            <!-- Divider
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
+            Nav Item - Dashboard 
             <li class="nav-item active">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
-            </li>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -202,7 +202,23 @@
                 $(".total_harga").val(total_harga);
                 $("input[name='jenis_transaksi'][value='" + jenis_transaksi + "']").prop("checked", true);
             });
+            $(document).ready(function () {
+                // Mengisi nilai input tanggal dengan tanggal saat ini
+                var today = new Date().toISOString().slice(0, 10); // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+                $('.tanggal_transaksi').val(today);
 
+                // Mengirim form saat tombol Submit ditekan
+                $('#myForm').submit(function (e) {
+                    e.preventDefault(); // Mencegah form dikirim secara langsung
+
+                    // Mengirim form dengan nilai tanggal yang sudah diatur
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: $(this).attr('method'),
+                        data: $(this).serialize()
+                    });
+                });
+            });
         </script>
 
         <script>

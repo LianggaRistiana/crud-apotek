@@ -13,14 +13,14 @@
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <!-- <hr class="sidebar-divider my-0"> -->
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <!-- <li class="nav-item active">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
-            </li>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -198,7 +198,11 @@
                 $(".email").val(email);
                 $(".no_telp").val(no_telp);
                 $(".alamat").val(alamat);
-                $("input[name='userType'][value='" + userType + "']").prop("checked", true);
+                $(".userType").val(userType);
+                // $("input[name='userType'][value='" + userType + "']").prop("checked", true);
+                if (userType == "customer") {
+                    $(".passdiv").hide();
+                } 
             });
         </script>
 

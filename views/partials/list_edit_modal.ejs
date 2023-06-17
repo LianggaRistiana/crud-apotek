@@ -24,19 +24,21 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="name">Nama Obat</label>
-            <input
+            <input type="text" class="form-control nama_obat" id="nama_obat" name="nama_obat" readonly
+              class="form-control-plaintext" placeholder="" required />
+            <!-- <input
               type="text"
               class="form-control nama_obat"
               id="nama_obat"
-              name="nama_obat"
+              name="obat"
               placeholder="Masukan nama obat"
               required
-            />
+            /> -->
           </div>
           <div class="form-group">
-            <label for="name">Harga</label>
+            <!-- <label for="name">Harga</label> -->
             <input
-              type="number"
+              type="hidden"
               class="form-control harga"
               id="harga"
               name="new_harga"
@@ -69,7 +71,7 @@
         </div>
         <input type="hidden" class="id" name="id" />
         <input type="hidden" class="kuantitas" name="old_kuantitas"/>
-        <input type="hidden" class="harga" name="old_harga"/>
+        <input type="hidden" class="harga" name="harga"/>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             Close

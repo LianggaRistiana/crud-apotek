@@ -18,28 +18,33 @@ const transaksiScheme = new mongoose.Schema({
         enum: ['pembelian', 'penjualan'],
         default: 'pembelian'
     },
-    total_harga:{
-        type:Number,
-        require:true
+    total_harga: {
+        type: Number,
+        require: true
     },
-    products : [{
-        nama_obat : {
-            type:String,
-            require:true
+    products: [{
+        nama_obat: {
+            type: String,
+            require: true
         },
-        kuantitas:{
-            type:Number,
-            require:true
+        kuantitas: {
+            type: Number,
+            require: true
         },
-        harga:{
-            type:Number,
-            require:true
+        harga: {
+            type: Number,
+            require: true
         },
-        total_harga:{
-            type:Number,
-            require:true
+        total_harga: {
+            type: Number,
+            require: true
         }
-    }]
-})
+    }],
+    isConfirm:{
+        type: Boolean,
+        default: false
+    }
+}
+)
 
 module.exports = mongoose.model("Transaksi", transaksiScheme);

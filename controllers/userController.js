@@ -34,7 +34,6 @@ module.exports = {
       const alert = { message: alertMessage, status: alertStatus };
 
     //   render componen
-    
       res.render("user_page", {
         user,
         alert,
@@ -52,9 +51,9 @@ module.exports = {
     req.session.loggedIn = true;
     try {
       
-      const { nama, password, umur, email, no_telp, alamat, userType } = req.body;
+      const { nama, password, tanggal_lahir, email, no_telp, alamat, userType } = req.body;
       console.log(req.body);
-      await User.create({ nama, password, umur, email, no_telp, alamat, userType });
+      await User.create({ nama, password, tanggal_lahir, email, no_telp, alamat, userType });
       
       // success message
       req.flash("alertMessage", "Data user berhasil ditambahkan");

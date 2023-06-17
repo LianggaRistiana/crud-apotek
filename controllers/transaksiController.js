@@ -1,4 +1,7 @@
 const Transaksi = require("../models/Transaksi");
+const User = require("../models/User");
+const Mitra = require("../models/Mitra");
+const Obat = require("../models/Obat");
 
 module.exports = {
   // read data transaksi
@@ -7,24 +10,29 @@ module.exports = {
     try {
       var transaksi;
       if (req.query.tanggal != null) {
-        transaksi = await Transaksi.find({tanggal_transaksi : req.query.tanggal});
-      } else if (req.query.tipe != null){
-        transaksi = await Transaksi.find({jenis_transaksi : req.query.tipe});
-      } else if (req.query.namabeli != null){
-        transaksi = await Transaksi.find({nama_pembeli : req.query.namabeli});
-      } else if (req.query.namajual != null){
-        transaksi = await Transaksi.find({nama_penjual : req.query.namajual});
+        transaksi = await Transaksi.find({ tanggal_transaksi: req.query.tanggal });
+      } else if (req.query.tipe != null) {
+        transaksi = await Transaksi.find({ jenis_transaksi: req.query.tipe });
+      } else if (req.query.namabeli != null) {
+        transaksi = await Transaksi.find({ nama_pembeli: req.query.namabeli });
+      } else if (req.query.namajual != null) {
+        transaksi = await Transaksi.find({ nama_penjual: req.query.namajual });
       }
-      else{
-       transaksi = await Transaksi.find();
+      else {
+        transaksi = await Transaksi.find();
       }
-    //   message and status
+      //   message and status
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
       const alert = { message: alertMessage, status: alertStatus };
-    //   render componen
+
+      customer = await User.find({userType:"customer"});
+      var mitra = await Mitra.find();
+      //   render componen
       res.render("transaksi_page", {
         transaksi,
+        customer,
+        mitra,
         alert,
         username: req.session.username,
         title: "transaksi Table"
@@ -38,16 +46,18 @@ module.exports = {
     req.session.loggedIn = true;
     console.log("================= viewProducts ===============");
     try {
-      const transaksi = await Transaksi.findOne({_id:req.params.id});
+      const transaksi = await Transaksi.findOne({ _id: req.params.id });
+      const obat = await Obat.find();
       const products = transaksi.products;
-    //   message and status
+      //   message and status
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
       const alert = { message: alertMessage, status: alertStatus };
-    //   render componen
+      //   render componen
       res.render("list_products_page", {
         transaksi,
         products,
+        obat,
         alert,
         username: req.session.username,
         title: "transaksi Table"
@@ -83,31 +93,32 @@ module.exports = {
   addProducts: async (req, res) => {
     req.session.loggedIn = true;
     try {
-      const transaksi = await Transaksi.findOne({_id:req.params.id});
+      const transaksi = await Transaksi.findOne({ _id: req.params.id });
+      const obat = await Obat.findOne({ _id: req.body.obat});
       console.log("=============== ADD PRODUCT ===================");
       // console.log(req.body);
-      
+
       const newProduct = {
-        nama_obat : req.body.nama_obat,
-        harga : req.body.harga,
-        kuantitas : req.body.kuantitas,
-        total_harga : req.body.harga * req.body.kuantitas
+        nama_obat: obat.namaObat,
+        harga: obat.harga,
+        kuantitas: req.body.kuantitas,
+        total_harga: obat.harga * req.body.kuantitas
       };
       console.log(newProduct);
       transaksi.products.push(newProduct);
-      transaksi.total_harga += (req.body.harga * req.body.kuantitas);
+      transaksi.total_harga += (obat.harga* req.body.kuantitas);
       await transaksi.save();
 
       // success message
       req.flash("alertMessage", "Data Product berhasil ditambahkan");
       req.flash("alertStatus", "success");
-      res.redirect("/transaksi/products/"+req.params.id);
+      res.redirect("/transaksi/products/" + req.params.id);
 
     } catch (error) {
       // erro message
       req.flash("alertMessage", `${error.message}`);
       req.flash("alertStatus", "danger");
-      res.redirect("/transaksi/products/"+req.params.id);
+      res.redirect("/transaksi/products/" + req.params.id);
     }
   },
   // update data transaksi
@@ -118,22 +129,33 @@ module.exports = {
       // cari data berdasarkan id dan update
       // await Transaksi.findByIdAndUpdate(req.params.id, req.body, {new:true});
       // succes message
-      const {id,nama_pembeli,nama_penjual,tanggal_transaksi,jenis_transaksi,total_harga} = req.body;
-      const transaksi = await Transaksi.findOne({_id:id});
+      if (req.query.confirm != null) {
+        await Transaksi.findByIdAndUpdate({_id:req.body.id},{
+          $set: {
+            isConfirm:true
+          },
+        });
+        req.flash("alertMessage", "Berhasil menyimpan data transaksi");
+        req.flash("alertStatus", "success");
+        res.redirect("/transaksi");
+      } else {
 
-      // update dan simpan value baru
-      console.log(transaksi);
-      transaksi.nama_pembeli = nama_pembeli;
-      transaksi.nama_penjual = nama_penjual;
-      transaksi.tanggal_transaksi = tanggal_transaksi;
-      transaksi.jenis_transaksi = jenis_transaksi;
-      transaksi.total_harga= total_harga;
 
-      await transaksi.save();
+        const { id, nama_pembeli, nama_penjual, total_harga } = req.body;
+        const transaksi = await Transaksi.findOne({ _id: id });
 
-      req.flash("alertMessage", "Berhasil memperbarui data transaksi");
-      req.flash("alertStatus", "success");
-      res.redirect("/transaksi");
+        // update dan simpan value baru
+        console.log(transaksi);
+        transaksi.nama_pembeli = nama_pembeli;
+        transaksi.nama_penjual = nama_penjual;
+        transaksi.total_harga = total_harga;
+
+        await transaksi.save();
+
+        req.flash("alertMessage", "Berhasil memperbarui data transaksi");
+        req.flash("alertStatus", "success");
+        res.redirect("/transaksi");
+      }
     } catch (error) {
       // erro message
       req.flash("alertMessage", `${error.message}`);
@@ -146,13 +168,13 @@ module.exports = {
     req.session.loggedIn = true;
     try {
       console.log("================Edit products=============");
-      
-      const transaksi = await Transaksi.findOne({_id:req.params.idTransaksi});
-      console.log("harga normal :"+transaksi.total_harga);
-      transaksi.total_harga -= req.body.old_harga * req.body.old_kuantitas;
-      console.log("harga dikurangi :"+transaksi.total_harga);
-      transaksi.total_harga += req.body.new_harga * req.body.new_kuantitas;
-      console.log("harga baru"+transaksi.total_harga);
+
+      const transaksi = await Transaksi.findOne({ _id: req.params.idTransaksi });
+      console.log("harga normal :" + transaksi.total_harga);
+      transaksi.total_harga -= req.body.harga * req.body.old_kuantitas;
+      console.log("harga dikurangi :" + transaksi.total_harga);
+      transaksi.total_harga += req.body.harga * req.body.new_kuantitas;
+      console.log("harga baru" + transaksi.total_harga);
 
       await transaksi.save();
 
@@ -162,9 +184,9 @@ module.exports = {
         {
           $set: {
             'products.$.nama_obat': req.body.nama_obat,
-            'products.$.harga': req.body.new_harga,
+            'products.$.harga': req.body.harga,
             'products.$.kuantitas': req.body.new_kuantitas,
-            'products.$.total_harga': req.body.new_harga * req.body.new_kuantitas,
+            'products.$.total_harga': req.body.harga * req.body.new_kuantitas,
           },
         },
         { new: true }
@@ -175,12 +197,12 @@ module.exports = {
       // succes message
       req.flash("alertMessage", "Berhasil memperbarui data transaksi");
       req.flash("alertStatus", "success");
-      res.redirect("/transaksi/products/"+req.params.idTransaksi);
+      res.redirect("/transaksi/products/" + req.params.idTransaksi);
     } catch (error) {
       // erro message
       req.flash("alertMessage", `${error.message}`);
       req.flash("alertStatus", "danger");
-      res.redirect("/transaksi/products/"+req.params.idTransaksi);
+      res.redirect("/transaksi/products/" + req.params.idTransaksi);
     }
   },
 
@@ -207,8 +229,8 @@ module.exports = {
     req.session.loggedIn = true;
     console.log(req.body.total_harga);
     try {
-      
-      const transaksi = await Transaksi.findOne({_id : req.params.idTransaksi});
+
+      const transaksi = await Transaksi.findOne({ _id: req.params.idTransaksi });
       // const product = await Transaksi.findOne({ 'products._id': req.params.idProduct })
       // .select('products.$')
       // .exec();
@@ -224,13 +246,13 @@ module.exports = {
       // succes message
       req.flash("alertMessage", "Data Product berhasil dihapus");
       req.flash("alertStatus", "warning");
-      res.redirect("/transaksi/products/"+ req.params.idTransaksi);
+      res.redirect("/transaksi/products/" + req.params.idTransaksi);
     } catch (error) {
 
       // error message
       req.flash("alertMessage", `${error.message}`);
       req.flash("alertStatus", "danger");
-      res.redirect("/transaksi/products/"+ req.params.idTransaksi);
+      res.redirect("/transaksi/products/" + req.params.idTransaksi);
     }
   },
 };

@@ -1,7 +1,7 @@
-<!-- Modal -->
+<!-- Modal Admin -->
 <div
   class="modal fade"
-  id="add-modal"
+  id="add-modal-admin"
   tabindex="-1"
   role="dialog"
   aria-labelledby="exampleModalLabel"
@@ -10,7 +10,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Admin</h5>
         <button
           type="button"
           class="close"
@@ -22,6 +22,18 @@
       </div>
       <form action="/user" method="POST">
         <div class="modal-body">
+          <input type="hidden" name="userType" value="admin">
+          <!-- <div class="form-group">
+            <label for="name">Tipe User</label>
+            <div class="radio inline">
+                <input type="radio" name="userType" id="customerRadio" value="customer">
+                <label for="userType">Customer</label>
+            </div>
+            <div class="radio inline">
+                <input type="radio" name="userType" id="userType" value="admin">
+                <label for="userType">Admin</label>
+            </div>
+          </div> -->
           <div class="form-group">
             <label for="name">Nama</label>
             <input
@@ -33,7 +45,7 @@
               required
             />
           </div>
-          <div class="form-group">
+          <div class="form-group" id="passdiv">
             <label for="name">Password</label>
             <input
               type="text"
@@ -45,13 +57,13 @@
             />
           </div>
           <div class="form-group">
-            <label for="name">Umur</label>
+            <label for="name">Tanggal Lahir</label>
             <input
-              type="number"
+              type="date"
               class="form-control"
               id="umur"
-              name="umur"
-              placeholder="Masukan Umur"
+              name="tanggal_lahir"
+              placeholder="Masukan Tanggal Lahir"
               required
             />
           </div>
@@ -87,17 +99,122 @@
               rows="3"
             ></textarea>
           </div>
-          <div class="form-group">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-success">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Customer-->
+<div
+  class="modal fade"
+  id="add-modal-customer"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Customer</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/user" method="POST">
+        <div class="modal-body">
+          <input type="hidden" name="userType" value="customer">
+          <input type="hidden" name="password" value="-">
+          <!-- <div class="form-group">
             <label for="name">Tipe User</label>
-            <div class="radio inline">
-                <input type="radio" name="userType" id="userType" value="customer">
+            <div class="radio inline"> 
+                <input type="radio" name="userType" id="customerRadio" value="customer">
                 <label for="userType">Customer</label>
             </div>
             <div class="radio inline">
                 <input type="radio" name="userType" id="userType" value="admin">
                 <label for="userType">Admin</label>
             </div>
+          </div> -->
+          <div class="form-group">
+            <label for="name">Nama</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nama"
+              name="nama"
+              placeholder="Masukan nama"
+              required
+            />
           </div>
+          <!-- <div class="form-group" id="passdiv">
+            <label for="name">Password</label>
+            <input
+              type="text"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Masukan password"
+              required
+            />
+          </div> -->
+          <div class="form-group">
+            <label for="name">Tanggal Lahir</label>
+            <input
+              type="date"
+              class="form-control"
+              id="umur"
+              name="tanggal_lahir"
+              placeholder="Masukan Tanggal Lahir"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Masukan email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">No Telepon</label>
+            <input
+              type="text"
+              class="form-control"
+              id="no_telp"
+              name="no_telp"
+              placeholder="Masukan No Telepon"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Alamat</label>
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              placeholder="Masukan Alamat"
+              name="alamat"
+              rows="3"
+            ></textarea>
+          </div>
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">

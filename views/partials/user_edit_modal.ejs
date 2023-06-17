@@ -1,4 +1,7 @@
 <!-- Modal -->
+
+ 
+
 <div
   class="modal fade"
   id="edit-modal"
@@ -32,7 +35,7 @@
               required
             />
           </div>
-          <div class="form-group">
+          <div class="form-group passdiv">
             <label for="name">Password</label>
             <input
               type="text"
@@ -43,12 +46,13 @@
             />
           </div>
           <div class="form-group">
-            <label for="name">Umur</label>
+            <label for="name">Tanggal Lahir</label>
             <input
-              type="number"
-              class="form-control umur"
-              name="umur"
-              nama="Enter Umur"
+              type="date"
+              class="form-control"
+              id="umur"
+              name="tanggal_lahir"
+              placeholder="Masukan Tanggal Lahir"
               required
             />
           </div>
@@ -83,7 +87,7 @@
               required
             ></textarea>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="name">Tipe User</label>
             <div class="radio inline">
                 <input type="radio" class="userType" name="userType" id="userTypeUser" value="customer">
@@ -93,10 +97,11 @@
                 <input type="radio" name="userType" class="userType" id="userTypeAdmin" value="admin">
                 <label for="userType"> Admin</label>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="modal-footer">
           <input type="hidden" class="id" name="id" />
+          <input type="hidden" class="userType" name="userType" />
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             Close
           </button>

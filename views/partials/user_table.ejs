@@ -21,10 +21,17 @@
         </div>
       </form> -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-outline-success  " data-toggle="modal" data-target="#add-modal">
-      <i class="fa-solid fa-user"></i>
-      Tambah user
-    </button>
+    <div>
+      <button type="button" class="btn btn-outline-success  " data-toggle="modal" data-target="#add-modal-admin">
+        <i class="fa-solid fa-user"></i>
+        Tambah Admin
+      </button>
+      <button type="button" class="btn btn-outline-success  " data-toggle="modal" data-target="#add-modal-customer">
+        <i class="fa-solid fa-user"></i>
+        Tambah Customer
+      </button>
+    </div>
+    
 
     <nav class="navbar d-sm-inline-block navbar-light bg-light">
       <form class="form-inline" method="GET">
@@ -59,7 +66,7 @@
             <th>No</th>
             <th>Nama</th>
             <th>Password</th>
-            <th>Umur</th>
+            <th>Tanggal Lahir</th>
             <th>Email</th>
             <th>No Telepon</th>
             <th>Alamat</th>
@@ -80,7 +87,7 @@
                 <%= user[i].password %>
               </td>
               <td>
-                <%= user[i].umur %>
+                <%= user[i].tanggal_lahir %>
               </td>
               <td>
                 <%= user[i].email %>
@@ -101,7 +108,7 @@
                   <!-- ambil data untuk modals -->
                   <a href="javascript:void()" class="btn btn-outline-warning btn-sm mt-1 button-update"
                     data-id="<%= user[i].id %>" data-nama="<%= user[i].nama %>" data-password="<%= user[i].password %>"
-                    data-umur="<%= user[i].umur %>" data-email="<%= user[i].email %>"
+                    data-umur="<%= user[i].tanggal_lahir %>" data-email="<%= user[i].email %>"
                     data-no_telp="<%= user[i].no_telp %>" data-alamat="<%= user[i].alamat %>"
                     data-type="<%= user[i].userType %>">
 

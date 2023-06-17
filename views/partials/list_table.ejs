@@ -1,39 +1,49 @@
 <!-- DataTales Example -->
 
 <div class="card shadow mb-4 ">
-  <div class="card-header navbar py-3 justify-content-between">
+  <div class="card-header navbar py-3 d-flex justify-content-between">
     <!-- Button trigger modal -->
+    <% if (!transaksi.isConfirm) {%>
     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#add-modal">
       <i class="fa-solid fa-pills"></i>
       Tambah Product
     </button>
-
-      <a href="/transaksi" class="btn btn-warning"><i class="fa-solid fa-arrow-left mr-1"></i>Kembali</a>
+    <% } %>
+    <div></div>
+    <a href="/transaksi" class="btn btn-warning "><i class="fa-solid fa-arrow-left mr-1"></i>Kembali</a>
 
 
   </div>
   <div class="card-body">
-    <div> 
+    <div>
       <table width="100%" cellspacing="0">
         <tr>
           <td>Nama Pembeli</td>
           <td>:</td>
-          <td><%= transaksi.nama_pembeli %></td>
+          <td>
+            <%= transaksi.nama_pembeli %>
+          </td>
         </tr>
         <tr>
           <td>Nama Penjual</td>
           <td>:</td>
-          <td><%= transaksi.nama_penjual %></td>
+          <td>
+            <%= transaksi.nama_penjual %>
+          </td>
         </tr>
         <tr>
           <td>Tanggal Transaksi</td>
           <td>:</td>
-          <td><%= transaksi.tanggal_transaksi %></td>
+          <td>
+            <%= transaksi.tanggal_transaksi %>
+          </td>
         </tr>
         <tr>
           <td>Total Harga</td>
           <td>:</td>
-          <td><%= transaksi.total_harga %></td>
+          <td>
+            <%= transaksi.total_harga %>
+          </td>
         </tr>
       </table>
       <br>
@@ -47,7 +57,9 @@
             <th>Harga</th>
             <th>Kuantitas</th>
             <th>Total Harga</th>
+            <% if (!transaksi.isConfirm) {%>
             <th style="width: 80;">Action</th>
+            <% } %>
           </tr>
         </thead>
         <tbody>
@@ -68,29 +80,40 @@
               <td>
                 <%=products[i].total_harga %>
               </td>
-              <td class="text-right">
-                <!-- ambil id -->
-                <form action="/transaksi/<%=transaksi.id %>/<%=products[i].id %>?_method=DELETE" method="POST">
-                  <input type="hidden" class="id" name="total_harga" value=<%=products[i].total_harga %>/>
-                  <!-- ambil data untuk modals -->
-                  <a href="javascript:void()" class="btn btn-outline-warning btn-sm button-update"
-                    data-id="<%=products[i].id %>" 
-                    data-obat="<%=products[i].nama_obat %>" 
-                    data-harga="<%=products[i].harga %>" 
-                    data-kuantitas="<%=products[i].kuantitas %>">
+              <% if (!transaksi.isConfirm) {%>
+                <td class="text-right">
+                  <!-- ambil id -->
+                  <form action="/transaksi/<%=transaksi.id %>/<%=products[i].id %>?_method=DELETE" method="POST">
+                    <input type="hidden" class="total_harga" name="total_harga" value=<%=products[i].total_harga %>/>
+                    <!-- ambil data untuk modals -->
+                    <a href="javascript:void()" class="btn btn-outline-warning btn-sm button-update"
+                      data-id="<%=products[i].id %>" data-obat="<%=products[i].nama_obat %>"
+                      data-harga="<%=products[i].harga %>" data-kuantitas="<%=products[i].kuantitas %>">
 
-                    <!-- edit data i-->
-                    <i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                      <!-- edit data i-->
+                      <i class="fa-solid fa-pen-to-square"></i>Edit</a>
 
-                  <!-- hapus data i -->
-                  <button type="submit" class="btn btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i
-                      class="fa-solid fa-trash-can"></i></button>
-                </form>
-              </td>
+                    <!-- hapus data i -->
+                    <button type="submit" class="btn btn btn-danger btn-sm" onclick="return confirm('Anda Yakin?');"><i
+                        class="fa-solid fa-trash-can"></i></button>
+                  </form>
+                </td>
+                <% } %>
             </tr>
             <% } %>
         </tbody>
       </table>
     </div>
   </div>
+  <% if (!transaksi.isConfirm) {%>
+  <div class="card-footer py-3 justify-content-between">
+    <form action="/transaksi?_method=PUT&confirm=true" method="POST">
+      <input type="hidden" class="id" name="id" value=<%=transaksi.id %>>
+      <button type="submit" class="btn btn-success float-right">
+        <i class="fa-solid fa-floppy-disk mr-1"></i>
+        Konfirmasi
+      </button>
+    </form>
+  </div>
+  <% } %>
 </div>
